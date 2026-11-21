@@ -1,0 +1,16 @@
+# Dependencies and local runtime configuration
+node_modules/
+.env
+.env.*
+!.env.example
+
+# Local browser checks, transfer helpers, and packaged downloads
+qa-output/
+*.zip
+*.log
+
+# Editor and operating system files
+.vscode/
+.idea/
+.DS_Store
+Thumbs.db

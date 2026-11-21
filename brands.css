@@ -1,0 +1,56 @@
+.brand-page{--brand-bg:#f8f8f6;--brand-surface:#fff;--brand-ink:#282828;--brand-muted:#63665e;--brand-rule:#d9dad4;background:var(--brand-bg);color:var(--brand-ink)}
+.brand-page .wordmark{display:flex;flex-direction:column;gap:9px;letter-spacing:0;line-height:1;flex-shrink:0}
+.brand-name{font-family:Georgia,'Times New Roman',serif;font-size:30px;font-weight:400;letter-spacing:-.055em}
+.brand-discipline{font-size:9px;letter-spacing:.22em;font-weight:400}
+.brand-page .header{height:112px;gap:38px}
+.brand-page .header nav{gap:24px;font-size:14px;font-weight:400}
+.brand-page .header nav .studio-switch{border:1px solid var(--brand-rule);padding:9px 12px;font-size:12px}
+.brand-page .header .tag{display:none}
+.brand-page .start-project{font-size:14px;flex-shrink:0}
+.brand-page .hero-copy{padding-top:44px;gap:35px}
+.brand-page .hero-copy p{font-size:clamp(16px,1.3vw,20px);width:32%;color:var(--brand-muted)}
+.brand-page .button{font-size:13px;letter-spacing:.04em}
+.brand-page .hero-caption{font-size:12px;letter-spacing:.06em;gap:18px}
+.brand-page .eyebrow{font-size:12px;line-height:1.6}
+.brand-page .section-heading>p,.brand-page .collection-copy>p{font-size:16px;color:var(--brand-muted)}
+.brand-page .concept-note{font-size:13px;margin:-32px 0 30px;color:var(--brand-muted);line-height:1.6}
+.brand-page .project-summary h3{font-size:20px}
+.brand-page .project-summary>span{font-size:12px}
+.brand-page .project-card>p{font-size:14px;line-height:1.5;color:var(--brand-muted)}
+.brand-page .project-meta{font-size:12px;color:var(--brand-muted);line-height:1.6;gap:14px}
+.brand-page .project-meta span{white-space:nowrap}
+.brand-page .underlined{font-size:14px;line-height:1.5}
+.brand-page .process-list details>p{font-size:16px;color:var(--brand-muted)}
+.brand-page footer>p,.brand-page footer>a:nth-of-type(2){font-size:14px}
+.brand-page .footer-bottom{font-size:12px;line-height:1.6}
+.brand-page dialog{background:var(--brand-surface);color:var(--brand-ink)}
+.brand-page .form-intro,.brand-page .project-detail p,.brand-page .journal-dialog>p{font-size:16px;color:var(--brand-muted)}
+.brand-page .journal-dialog .article-lead{color:var(--brand-ink);font-size:21px}
+.brand-page form label{font-size:14px}
+.brand-page form input,.brand-page form textarea,.brand-page form select{font-size:16px;color:var(--brand-ink);border-color:var(--brand-rule)}
+.brand-page form small{font-size:12px;line-height:1.6;color:var(--brand-muted)}
+.brand-page .detail-meta{font-size:13px;line-height:1.5;color:var(--brand-muted);border-color:var(--brand-rule)}
+.maison-page{--brand-bg:#282828;--brand-surface:#303030;--brand-ink:#f5f4f1;--brand-muted:#c1c0bc;--brand-rule:#51514f;color-scheme:dark}
+.maison-page .site-shell{background:#282828}
+.maison-page .hero-copy{padding-bottom:45px}
+.maison-page .hero-image{margin:0 4.25%;aspect-ratio:2.15}
+.maison-page .crop img{position:absolute;width:100%;height:100%;left:0;top:0;object-fit:cover;filter:saturate(.45)}
+.maison-page .hero-caption{background:#282828;border-color:var(--brand-rule);padding-top:22px;padding-bottom:22px}
+.maison-page .button{background:#f5f4f1;color:#282828}
+.maison-page .button:hover{background:#d4d3cf}
+.maison-page .projects,.maison-page .collection{background:#242424}
+.maison-page .project-card,.maison-page .collection-copy{background:#303030}
+.maison-page .collection-image{min-height:490px}
+.maison-page .collection-image img{height:100%;top:0;object-fit:cover}
+.maison-page .contact-section{background:#343434}
+.maison-page .start-project,.maison-page .underlined,.maison-page .process-list details,.maison-page .footer-bottom{border-color:var(--brand-rule)}
+.maison-page .project-dialog .close-dialog{background:#303030}
+.maison-page .image-arrow{background:#eee;color:#282828}
+.maison-page .project-dialog .crop img{width:100%;height:100%;left:0;top:0;object-fit:cover}
+.brand-page select{appearance:none;padding-right:24px;background-image:linear-gradient(45deg,transparent 50%,var(--brand-ink) 50%),linear-gradient(135deg,var(--brand-ink) 50%,transparent 50%);background-position:calc(100% - 11px) 50%,calc(100% - 6px) 50%;background-size:5px 5px;background-repeat:no-repeat}
+.brand-page select option{background:var(--brand-surface)}
+.brand-page :focus-visible{outline-color:var(--brand-ink)}
+@media(max-width:1200px) and (min-width:701px){.brand-page .header{gap:22px;padding:0 3%}.brand-page .header nav{gap:16px;font-size:13px}.brand-page .start-project{font-size:12px}.brand-name{font-size:27px}.brand-page .project-summary h3{font-size:17px}.brand-page .project-summary{padding-left:18px;padding-right:18px}.brand-page .project-card>p{margin-left:18px;margin-right:18px}.brand-page .project-meta{margin-left:18px;margin-right:18px}.brand-page .hero-copy p{font-size:16px}}
+@media(max-width:960px) and (min-width:701px){.brand-page .header nav{gap:14px}.brand-page .start-project svg{display:none}.brand-page .header .journal-link{display:none}.brand-page .header nav .studio-switch{padding:8px}.brand-name{font-size:25px}}
+@media(max-width:700px){.brand-page .header{height:92px;gap:15px;padding:0 6%}.brand-name{font-size:27px}.brand-discipline{font-size:8px}.brand-page .start-project{font-size:12px}.brand-page .start-project svg{display:none}.brand-page .menu-button{font-size:13px;min-height:44px;padding:8px}.brand-page .header nav{top:92px;background:var(--brand-surface);font-size:14px;gap:18px}.brand-page .hero-copy{padding-top:27px}.brand-page .hero-copy p{width:100%;max-width:390px;font-size:16px}.maison-page .hero-copy{padding-bottom:32px}.maison-page .hero-image{margin:0 6%;aspect-ratio:1.25}.brand-page .hero-caption{font-size:10px;line-height:1.7;letter-spacing:.035em;align-items:center}.brand-page .hero-copy .button{font-size:12px;min-height:48px}.brand-page .section-heading>p{font-size:16px;max-width:420px}.brand-page .concept-note{margin:-10px 0 28px}.maison-page .collection-image{min-height:0;aspect-ratio:1.3}.brand-page .project-meta{font-size:12px}.brand-page .footer-bottom{font-size:11px;flex-wrap:wrap}.brand-page footer>p{font-size:13px}.brand-page .process-list details>p{font-size:16px}.brand-page .detail-meta{flex-wrap:wrap}.brand-page .contact-section .button{font-size:12px}}
+@media(max-width:370px){.brand-page .start-project{display:none}.brand-page .menu-button{margin-left:auto}.brand-page h1{font-size:37px}}
