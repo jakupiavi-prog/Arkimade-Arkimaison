@@ -4,6 +4,7 @@
   "private": true,
   "description": "Arkimaison interior design and Arkimade architecture portfolios",
   "scripts": {
+    "build": "node build.cjs",
     "start": "node server.cjs",
     "dev": "node server.cjs"
   }

@@ -21,7 +21,18 @@ Open http://localhost:3000/ and keep the server running. On Windows, you can als
 - `assets/`: logo PNGs, reference imagery, and transition scripts and styling.
 - `server.cjs`: local static server.
 
-The site can also be opened through `index.html` without the local server. To host it, upload the HTML, CSS, JavaScript, and `assets/` files together.
+The site can also be opened through `index.html` without the local server.
+
+## Deploy to Vercel
+
+Import this repository with its root directory set to `./`. The included
+`vercel.json` selects the Other framework preset, runs `npm run build`, and
+publishes `dist/` as a static website. There are no serverless functions.
+Do not set the production build command to `npm start` or `npm run dev`.
+
+To prepare the same static files locally, run `npm run build`. Upload the
+contents of `dist/` to any static web host. The local preview server,
+documentation, and tests are not included in that output.
 
 ## Checks
 
