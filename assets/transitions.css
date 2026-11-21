@@ -34,7 +34,7 @@ html.is-studio-leaving .studio-selector{transition:filter .6s,transform 1s;filte
 @keyframes curtain-right{from{transform:scaleX(-1)}to{transform:translateX(101%) scaleX(-1)}}
 /* Arkimaison: material panels lift into a lit room, then the camera enters. */
 .studio-transition--maison{background:#252623;perspective:1200px}
-.studio-transition--maison.is-exiting{animation:maison-room-cover .48s cubic-bezier(.65,0,.2,1) both}
+.studio-transition--maison.is-exiting{animation:studio-cover-right .48s cubic-bezier(.65,0,.2,1) both}
 .maison-atmosphere{position:absolute;inset:0;background:radial-gradient(ellipse at 65% 35%,#d9c6a22b,transparent 55%),#252623}
 .maison-room{position:absolute;inset:0;overflow:hidden;transform:scale(1.04);transform-origin:55% 45%}
 .maison-room-image{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;object-position:55% 50%;filter:saturate(.88) brightness(.88) contrast(1.02)}
@@ -72,7 +72,7 @@ html.is-studio-leaving .studio-selector{transition:filter .6s,transform 1s;filte
 @media(max-width:600px){.maison-room-image{object-position:52% center}.maison-signature{gap:18px}.maison-overline{font-size:9px;letter-spacing:.2em}.maison-signature strong{font-size:clamp(3.4rem,12vw,5rem)}.maison-caption{font-size:11px}}
 /* Arkimade: facade planes reveal an actual residence in natural daylight. */
 .studio-transition--made{color:#282828;background:#e8e8e4}
-.studio-transition--made.is-exiting{animation:blueprint-cover .48s cubic-bezier(.65,0,.2,1) both}
+.studio-transition--made.is-exiting{animation:studio-cover-left .48s cubic-bezier(.65,0,.2,1) both}
 .made-scene{position:absolute;inset:0;overflow:hidden;transform:scale(1.04);transform-origin:55% 48%}
 .made-scene-image{width:100%;height:100%;object-fit:cover;object-position:50% 55%;filter:saturate(.6) brightness(1.12) contrast(.94)}
 .made-scene::after{content:"";position:absolute;inset:0;background:linear-gradient(180deg,#f3f4ef55,#f3f4ef22),radial-gradient(ellipse at 50% 48%,#fffffff0 0%,#f8f9f0b8 35%,#f2f5ec33 75%)}
@@ -96,4 +96,23 @@ html.is-studio-leaving .studio-selector{transition:filter .6s,transform 1s;filte
 .transition-logo{display:block;width:clamp(64px,7vw,96px);height:auto;aspect-ratio:1;object-fit:contain;border:1px solid #ffffff24;box-shadow:0 12px 36px #0003;animation:maison-detail-in .6s .15s both}
 .transition-logo--maison{width:min(640px,80vw);height:auto;aspect-ratio:auto;border:0;box-shadow:none;filter:drop-shadow(0 3px 20px #0004)}
 .transition-logo--made{width:min(620px,82vw);height:auto;aspect-ratio:auto;object-fit:contain;border:0;background:transparent;padding:0;box-shadow:none}
-@media(prefers-reduced-motion:reduce){html[data-studio-entry]::before,.studio-transition{display:none}html.is-studio-leaving .studio-selector{transition:none;filter:none;transform:none}.maison-arriving .hero-image img,.maison-arriving .hero-copy,.made-arriving .hero-copy{animation:none}}
+@keyframes studio-cover-left{from{transform:translate3d(-100%,0,0)}to{transform:translate3d(0,0,0)}}
+@keyframes studio-cover-right{from{transform:translate3d(100%,0,0)}to{transform:translate3d(0,0,0)}}
+@keyframes studio-soft-in{from{opacity:0}to{opacity:1}}
+@keyframes studio-soft-out{from{opacity:1}to{opacity:0}}
+/* Keep the logo reveal, without movement, for iOS Reduce Motion users. */
+@media(prefers-reduced-motion:reduce){
+ html.is-studio-leaving .studio-selector{transition:none;filter:none;transform:none}
+ .studio-transition,.studio-transition *{animation:none!important;transform:none!important;filter:none!important;clip-path:none!important}
+ .studio-transition.is-exiting{animation:studio-soft-in .15s both!important}
+ .studio-transition.is-entering{animation:studio-soft-out .35s .15s both!important}
+ .maison-materials,.made-facade,.maison-light,.maison-grain{display:none}
+ .maison-arriving .hero-image img,.maison-arriving .hero-copy,.made-arriving .hero-copy{animation:none}
+}
+/* Avoid the costly full-screen grain and blending layers on touch WebKit. */
+@supports(-webkit-touch-callout:none){
+ .maison-grain{display:none}
+ .maison-light{mix-blend-mode:normal}
+ .studio-transition--maison{perspective:none}
+}
+.studio-transition.is-preparing,.studio-transition.is-preparing *{animation-play-state:paused!important}
