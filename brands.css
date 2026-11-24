@@ -57,44 +57,6 @@ html{--studio-header-height:112px;scroll-padding-top:calc(var(--studio-header-he
 @media(max-width:370px){.brand-page .start-project{display:none}.brand-page .menu-button{margin-left:auto}.brand-page h1{font-size:37px}}
 @media(max-width:700px){html{--studio-header-height:92px}.brand-page .header nav{top:100%;max-height:calc(100vh - var(--studio-header-height));max-height:calc(100dvh - var(--studio-header-height));overflow-y:auto}}
 
-/* Editorial navigation: typography, space, and fine moving rules. */
-.brand-page .header nav{gap:28px}
-.brand-page .header nav a,.brand-page .header .journal-link{position:relative;display:inline-flex;align-items:center;justify-content:center;min-height:44px;min-width:44px;padding:12px 0;border:0;border-radius:0;background:transparent;font-size:13px;font-weight:400;line-height:1.3;letter-spacing:.035em;white-space:nowrap;color:var(--brand-muted);transition:color .22s}
-.brand-page .header nav a::after,.brand-page .header .journal-link::after{content:"";position:absolute;left:0;right:0;bottom:7px;height:1px;background:var(--brand-ink);transform:scaleX(0);transform-origin:left;opacity:.65;transition:transform .28s cubic-bezier(.2,.7,.3,1)}
-.brand-page .header nav .chevron{display:none}
-.brand-page .header nav .studio-switch{padding:12px 0;border:0;background:transparent;color:var(--brand-ink);font:italic 16px/1.3 Georgia,'Times New Roman',serif;letter-spacing:0}
-.brand-page .header .start-project{position:relative;gap:0;min-height:44px;padding:12px 0;border:0;border-radius:0;background:transparent;color:var(--brand-ink);font-size:12px;font-weight:400;line-height:1.4;letter-spacing:.09em;text-transform:uppercase;white-space:nowrap;box-shadow:none;transition:opacity .22s}
-.brand-page .header .start-project::after{content:"";position:absolute;left:0;right:0;bottom:6px;height:1px;background:currentColor;opacity:.5;transform:scaleX(.35);transform-origin:left;transition:transform .3s cubic-bezier(.2,.7,.3,1),opacity .3s}
-.brand-page .header .start-project svg{display:none}
-.brand-page .header .menu-button{width:44px;min-height:44px;padding:10px;border:0;border-radius:0;background:transparent;color:var(--brand-ink);flex-shrink:0}
-.brand-page .header .menu-button svg{display:block;width:22px;height:22px;fill:none;stroke:currentColor;stroke-width:1.5;stroke-linecap:round}
-.brand-page .header .menu-button[aria-expanded="true"]{background:transparent;color:var(--brand-ink);opacity:.6}
-.brand-page .header nav a:focus-visible,.brand-page .header .journal-link:focus-visible{background:transparent;color:var(--brand-ink)}
-.brand-page .header nav a:active,.brand-page .header .journal-link:active{background:transparent;color:var(--brand-ink)}
-.brand-page .header .start-project:focus-visible::after{transform:scaleX(1);opacity:1}
-@media(hover:hover){
- .brand-page .header nav a:hover,.brand-page .header .journal-link:hover{color:var(--brand-ink);background:transparent}
- .brand-page .header nav a:hover::after,.brand-page .header .journal-link:hover::after{transform:scaleX(1)}
- .brand-page .header .start-project:hover::after{transform:scaleX(1);opacity:1}
-}
-@media(min-width:701px) and (max-width:1100px){
- .brand-page .header{gap:22px}
- .brand-page .header nav{gap:18px}
- .brand-page .header nav a,.brand-page .header .journal-link{padding:12px 0;font-size:12px}
- .brand-page .header nav .studio-switch{padding:12px 0;font-size:15px}
- .brand-page .header .start-project{padding:12px 0;font-size:11px}
-}
-@media(max-width:700px){
- .brand-page .header .start-project{min-height:44px;padding:12px 0;font-size:11px;letter-spacing:.06em}
- .brand-page .header nav{padding:10px 6% 22px;gap:0;background:var(--brand-bg);border-bottom:1px solid var(--brand-rule);border-radius:0;box-shadow:none}
- .brand-page .header nav.open{display:grid;grid-template-columns:1fr}
- .brand-page .header nav a,.brand-page .header .journal-link{width:100%;justify-content:flex-start;padding:15px 0;min-height:48px;font-size:14px;background:transparent;border-bottom:1px solid var(--brand-rule)}
- .brand-page .header nav a::after,.brand-page .header .journal-link::after{display:none}
- .brand-page .header nav .studio-switch{grid-column:1/-1;font-size:18px;min-height:52px;border-bottom:1px solid var(--brand-rule)}
- .brand-page .header .journal-link{border-bottom:0}
-}
-@media(min-width:701px) and (max-width:960px){.brand-page .header .journal-link{display:none}}
-
 /* Project categories follow the same light, typographic navigation. */
 .project-filters{display:flex;flex-wrap:wrap;column-gap:26px;row-gap:0;border-bottom:1px solid var(--brand-rule);padding-bottom:6px}
 .project-filters button{position:relative;min-height:46px;padding:12px 0;border:0;background:none;color:var(--brand-muted);font-size:14px;font-weight:400;line-height:1.5;letter-spacing:.02em;text-align:left;transition:color .2s}
@@ -109,43 +71,58 @@ html{--studio-header-height:112px;scroll-padding-top:calc(var(--studio-header-he
 @media(hover:hover){.project-filters button:hover{color:var(--brand-ink)}.project-filters button:hover::after{transform:scaleX(1)}}
 @media(max-width:700px){.project-filters{column-gap:20px}.project-filters button{font-size:13px;min-height:44px;padding:11px 0}.project-filter-status{padding:14px 0 24px}}
 
-/* Shared studio navigation, with a more generous editorial rhythm. */
-.brand-page .header{display:grid;grid-template-columns:auto 1fr auto;gap:32px;height:var(--studio-header-height)}
-.brand-page .header nav{display:flex;justify-content:center;gap:26px}
-.brand-page .header nav .nav-link,.brand-page .header .journal-link{display:inline-flex;padding:15px 0;min-height:48px;font-size:13px;font-weight:400;letter-spacing:.045em;color:var(--brand-muted)}
-.brand-page .header nav .studio-switch{margin-left:5px;padding:15px 0 15px 24px;border-left:1px solid var(--brand-rule);font:italic 16px/1.3 Georgia,'Times New Roman',serif;white-space:nowrap}
-.brand-page .header nav .studio-switch::after{left:24px}
-.brand-page .header nav a[aria-current="location"]{color:var(--brand-ink)}
-.brand-page .header nav a[aria-current="location"]::after{transform:scaleX(1);opacity:1}
-.brand-page .header .start-project{margin-left:0;font:italic 19px/1.3 Georgia,'Times New Roman',serif;letter-spacing:0;text-transform:none;min-height:48px}
-.brand-page .header .start-project::after{bottom:7px;transform:scaleX(.45);opacity:.4}
-.brand-page .header .menu-button svg{stroke-width:1.35}
-.brand-page .header .menu-button .menu-line{transition:transform .25s ease;transform-box:view-box}
+/* Compact studio navigation. */
+html{--studio-header-height:76px}
+.brand-page{--nav-hover:#00000008}
+.maison-page{--nav-hover:#ffffff0d}
+.brand-page .header{display:grid;grid-template-columns:auto 1fr auto;align-items:center;gap:24px;height:var(--studio-header-height);padding:0 4%}
+.brand-page .header .wordmark{gap:6px}
+.brand-page .header .brand-name{font-size:24px}
+.brand-page .header .brand-discipline{font-size:8px;letter-spacing:.18em}
+.brand-page .header nav{display:flex;align-items:center;justify-content:center;gap:4px}
+.brand-page .header nav a,.brand-page .header .journal-link{position:relative;display:inline-flex;align-items:center;justify-content:center;min-width:44px;min-height:40px;padding:10px 12px;border:0;border-radius:999px;background:transparent;color:var(--brand-muted);font:400 13px/1.3 Arial,Helvetica,sans-serif;letter-spacing:0;white-space:nowrap;box-shadow:none;transition:color .18s,background .18s}
+.brand-page .header nav .studio-switch{margin-left:10px;padding:9px 14px;border:1px solid var(--brand-rule);border-radius:999px;background:transparent;color:var(--brand-ink);font:400 12px/1.3 Arial,Helvetica,sans-serif;letter-spacing:0}
+.brand-page .header nav a::after,.brand-page .header .journal-link::after,.brand-page .header .start-project::after{display:none}
+.brand-page .header nav .chevron{display:none}
+.brand-page .header .tag{display:none}
+.brand-page .header nav a[aria-current="location"]{font-style:normal;color:var(--brand-ink);background:var(--nav-hover)}
+.brand-page .header .start-project{display:flex;justify-content:center;margin-left:0;gap:0;min-height:40px;padding:11px 18px;border:1px solid var(--brand-ink);border-radius:999px;background:var(--brand-ink);color:var(--brand-bg);font:400 13px/1.3 Arial,Helvetica,sans-serif;letter-spacing:0;text-transform:none;white-space:nowrap;box-shadow:none;transition:opacity .18s}
+.brand-page .header .start-project svg{display:none}
+.brand-page .header .menu-button{display:none;width:44px;height:44px;min-height:44px;padding:11px;border:0;border-radius:50%;background:transparent;color:var(--brand-ink);margin:0}
+.brand-page .header .menu-button svg{display:block;width:22px;height:22px;fill:none;stroke:currentColor;stroke-width:1.5;stroke-linecap:round}
+.brand-page .header .menu-button .menu-line{transition:transform .2s;transform-box:view-box}
 .brand-page .header .menu-button .menu-line:first-child{transform-origin:12px 8px}
 .brand-page .header .menu-button .menu-line:last-child{transform-origin:12px 16px}
-.brand-page .header .menu-button[aria-expanded="true"]{opacity:1}
+.brand-page .header .menu-button[aria-expanded="true"]{background:var(--nav-hover)}
 .brand-page .header .menu-button[aria-expanded="true"] .menu-line:first-child{transform:translateY(4px) rotate(45deg)}
 .brand-page .header .menu-button[aria-expanded="true"] .menu-line:last-child{transform:translateY(-4px) rotate(-45deg)}
-@media(min-width:901px) and (max-width:1150px){
- .brand-page .header{gap:24px}
- .brand-page .header nav{gap:18px}
- .brand-page .header nav .nav-link,.brand-page .header .journal-link{font-size:12px;letter-spacing:.025em}
- .brand-page .header nav .studio-switch{padding-left:18px;font-size:15px}
- .brand-page .header nav .studio-switch::after{left:18px}
- .brand-page .header .start-project{font-size:17px}
+.brand-page .header nav a:focus-visible,.brand-page .header .journal-link:focus-visible{color:var(--brand-ink);background:var(--nav-hover)}
+@media(hover:hover){
+ .brand-page .header nav a:hover,.brand-page .header .journal-link:hover{color:var(--brand-ink);background:var(--nav-hover)}
+ .brand-page .header .start-project:hover{opacity:.8}
+ .brand-page .header .menu-button:hover{background:var(--nav-hover)}
+}
+@media(min-width:901px) and (max-width:1100px){
+ .brand-page .header{gap:16px;padding:0 3%}
+ .brand-page .header nav a,.brand-page .header .journal-link{padding:10px 9px;font-size:12px}
+ .brand-page .header nav .studio-switch{margin-left:5px;padding:9px 12px;font-size:12px}
+ .brand-page .header .start-project{padding:11px 15px;font-size:12px}
 }
 @media(max-width:900px){
- html{--studio-header-height:92px}
- .brand-page .header{grid-template-columns:auto 1fr auto;gap:16px;padding:0 6%}
- .brand-page .header .start-project{justify-self:end;font-size:16px;margin-left:0}
+ html{--studio-header-height:68px}
+ .brand-page .header{grid-template-columns:auto 1fr auto;gap:10px;padding:0 5%}
+ .brand-page .header .brand-name{font-size:23px}
+ .brand-page .header .brand-discipline{font-size:7px}
+ .brand-page .header .start-project{justify-self:end;min-height:44px;padding:10px 14px;font-size:12px}
  .brand-page .header .menu-button{display:block}
- .brand-page .header nav{display:none;position:absolute;top:100%;left:0;right:0;max-height:calc(100vh - var(--studio-header-height));max-height:calc(100dvh - var(--studio-header-height));overflow-y:auto;background:var(--brand-bg);padding:16px 6% 24px;border-bottom:1px solid var(--brand-rule);gap:0;box-shadow:none;border-radius:0}
- .brand-page .header nav.open{display:flex;flex-direction:column;align-items:stretch;animation:studio-nav-open .24s ease both}
- .brand-page .header nav .nav-link,.brand-page .header .journal-link{display:flex;justify-content:flex-start;width:100%;padding:16px 0;min-height:58px;border-bottom:1px solid var(--brand-rule);font:400 28px/1.25 Georgia,'Times New Roman',serif;letter-spacing:-.025em;color:var(--brand-ink)}
- .brand-page .header nav a::after,.brand-page .header .journal-link::after{display:none}
- .brand-page .header nav a[aria-current="location"]{font-style:italic}
- .brand-page .header nav .studio-switch{margin:14px 0 0;padding:14px 0 4px;border:0;font:italic 20px/1.3 Georgia,'Times New Roman',serif;min-height:48px;color:var(--brand-muted)}
+ .brand-page .header nav{display:none;position:absolute;top:100%;left:0;right:0;padding:12px 5% 16px;gap:5px;max-height:calc(100vh - var(--studio-header-height));max-height:calc(100dvh - var(--studio-header-height));overflow-y:auto;border-radius:0;background:var(--brand-bg);border-bottom:1px solid var(--brand-rule);box-shadow:none}
+ .brand-page .header nav.open{display:grid;grid-template-columns:repeat(2,minmax(0,1fr))}
+ .brand-page .header nav .nav-link,.brand-page .header .journal-link{display:flex;width:100%;justify-content:flex-start;min-height:44px;padding:12px;border:0;border-radius:8px;font:400 14px/1.3 Arial,Helvetica,sans-serif;letter-spacing:0}
+ .brand-page .header nav .studio-switch{grid-column:1/-1;justify-self:start;width:auto;margin:5px 0 0;min-height:44px;padding:11px 16px;border:1px solid var(--brand-rule);border-radius:999px;font:400 13px/1.3 Arial,Helvetica,sans-serif}
 }
-@media(max-width:370px){.brand-page .header{grid-template-columns:1fr auto}.brand-page .header .start-project{display:none}}
-@keyframes studio-nav-open{from{opacity:0;transform:translateY(-6px)}to{opacity:1;transform:none}}
-@media(prefers-reduced-motion:reduce){.brand-page .header nav.open{animation:none}.brand-page .header .menu-button .menu-line{transition:none}}
+@media(max-width:370px){
+ .brand-page .header{gap:6px;padding:0 4%}
+ .brand-page .header .brand-name{font-size:21px}
+ .brand-page .header .start-project{display:flex;font-size:11px;padding:10px 12px}
+}
+
