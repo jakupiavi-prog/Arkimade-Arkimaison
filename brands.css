@@ -126,3 +126,35 @@ html{--studio-header-height:76px}
  .brand-page .header .start-project{display:flex;font-size:11px;padding:10px 12px}
 }
 
+/* Compact Arkimade portfolio, with one category control and lighter cards. */
+.made-page .projects{padding-top:64px;padding-bottom:72px;background:var(--brand-bg)}
+.made-page .projects .section-heading{align-items:center;gap:24px;margin-bottom:24px}
+.made-page .projects .section-heading h2{font-size:clamp(28px,3vw,42px);line-height:1.15;letter-spacing:-.04em}
+.made-page .projects .section-heading>p{width:auto;max-width:320px;padding:0;font-size:14px;line-height:1.6}
+.made-page .project-toolbar{display:flex;justify-content:space-between;align-items:flex-end;gap:16px;margin-bottom:24px;padding-bottom:20px;border-bottom:1px solid var(--brand-rule)}
+.made-page .project-toolbar[hidden]{display:none!important}
+.made-page .project-category-control{display:grid;gap:7px}
+.made-page .project-category-control label{font-size:12px;line-height:1.4;color:var(--brand-muted)}
+.made-page .project-category-control select{width:clamp(160px,36vw,220px);min-height:44px;padding:10px 34px 10px 15px;border:1px solid var(--brand-rule);border-radius:999px;background-color:var(--brand-surface);font-size:14px;line-height:1.4;color:var(--brand-ink);cursor:pointer}
+.made-page .project-filter-status{padding:0 0 12px;white-space:nowrap;font-size:13px;line-height:1.5}
+.made-page .project-grid{gap:24px}
+.made-page .project-card{background:transparent;overflow:visible;transition:transform .25s}
+.made-page .project-image{aspect-ratio:4/3;border-radius:9px;background:#e4e5df}
+.made-page .project-image img{top:calc(-1 * var(--y) / var(--w) * 133.333333%)}
+.made-page .project-summary{padding:15px 0 0}
+.made-page .project-summary h3{font-size:18px;line-height:1.3;font-weight:500}
+.made-page .project-card>p{margin:6px 0 11px;font-size:13px;line-height:1.5}
+.made-page .project-meta{margin:0;padding:0;gap:14px;font-size:12px;line-height:1.6}
+.made-page .project-empty{padding:12px 0 0}
+.project-toolbar[hidden]{display:none!important}
+@media(hover:hover){.made-page .project-card:hover{transform:translateY(-3px)}}
+@media(max-width:700px){
+ .made-page .projects{padding-top:40px;padding-bottom:48px}
+ .made-page .projects .section-heading{margin-bottom:20px}
+ .made-page .projects .section-heading>p{padding-top:10px;max-width:320px}
+ .made-page .project-toolbar{margin-bottom:20px;padding-bottom:16px}
+ .made-page .project-grid{gap:28px}
+ .made-page .project-summary{padding-top:13px}
+ .made-page .project-summary h3{font-size:18px}
+}
+
