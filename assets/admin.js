@@ -83,7 +83,7 @@
   }
   function renderContact() {
     const page=current();
-    return card('Contact details', 'Shown at the bottom of both this studio’s pages. Leave a field empty to hide it.', field('Email','contactEmail',page.contactEmail,{type:'email',max:254}) + field('Phone','contactPhone',page.contactPhone,{type:'tel',max:80}) + field('Address','contactAddress',page.contactAddress,{rows:3,max:400}));
+    return card('Contact details', 'Shown in the footer of this studio’s pages and on the welcome page after you publish. Leave a field empty to hide it.', field('Email','contactEmail',page.contactEmail,{type:'email',max:254}) + field('Phone','contactPhone',page.contactPhone,{type:'tel',max:80}) + field('Address','contactAddress',page.contactAddress,{rows:3,max:400}));
   }
   function renderStaff() {
     const page = current();
