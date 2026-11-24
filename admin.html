@@ -1,0 +1,32 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+  <meta name="robots" content="noindex,nofollow"><meta name="theme-color" content="#f5f4ef">
+  <title>Studio Manager · Arkimade & Arkimaison</title>
+  <link rel="icon" href="assets/arki-mark.svg" type="image/svg+xml">
+  <link rel="stylesheet" href="assets/admin.css"><script src="assets/content-render.js" defer></script><script src="assets/admin.js" defer></script>
+</head>
+<body>
+  <main id="sign-in" class="sign-in">
+    <div class="login-intro"><span class="studio-monogram" aria-hidden="true">A</span><p class="eyebrow">YOUR SPACE TO CREATE</p><h1>A little care.<br>A lasting impression.</h1><p>Keep your studios up to date, one thoughtful detail at a time.</p><div class="studio-signature">Arkimade <span>&</span> Arkimaison</div></div>
+    <section class="login-card" aria-labelledby="login-title"><p class="eyebrow">STUDIO MANAGER</p><h2 id="login-title">Welcome back.</h2><p>Edit your projects, photographs, and words. All in one place.</p>
+      <form id="login-form"><label for="password">Owner password</label><input id="password" name="password" type="password" autocomplete="current-password" required maxlength="1024"><button class="primary" type="submit">Sign in</button></form>
+      <p id="login-status" class="notice" role="status" aria-live="polite">Checking the publishing connection…</p>
+      <button id="try-preview" type="button" class="quiet" hidden>Explore the editor preview</button><a class="back-link" href="index.html">Back to the website</a>
+    </section>
+  </main>
+  <div id="dashboard" class="dashboard" hidden>
+    <aside class="sidebar"><a class="manager-brand" href="index.html"><span class="studio-monogram small" aria-hidden="true">A</span><span>Studio<br><strong>Manager</strong></span></a><p class="sidebar-label">YOUR WEBSITE</p>
+      <nav id="page-nav" aria-label="Choose a page"><button data-page="welcome" type="button"><span>Welcome page</span><small>The first impression</small></button><button data-page="arkimade" type="button"><span>Arkimade</span><small>Architecture & form</small></button><button data-page="arkimaison" type="button"><span>Arkimaison</span><small>Interiors & living</small></button></nav>
+      <div class="sidebar-bottom"><button id="backup" class="quiet" type="button">Download a backup</button><button id="sign-out" class="quiet" type="button">Sign out</button><p>Small updates.<br>A considered website.</p></div>
+    </aside>
+    <div class="workspace"><header class="editor-header"><div class="save-state"><span id="state-dot" aria-hidden="true"></span><span id="save-state">All changes saved</span></div><div class="header-actions"><a id="view-site" class="quiet" href="index.html" target="_blank" rel="noopener">View website</a><button id="preview-changes" class="secondary" type="button">Preview</button><button id="publish" class="primary" type="button" disabled>Publish changes</button></div></header>
+      <div class="editor-content"><div id="preview-notice" class="preview-notice" hidden>Editor preview. You can try the controls; changes here will not be published.</div><p id="editor-status" class="notice" role="status" aria-live="polite"></p><div class="page-heading"><p id="page-eyebrow" class="eyebrow">THE FIRST IMPRESSION</p><h1 id="page-title">Welcome page</h1><p id="page-description">Two studios. One inviting introduction.</p></div><nav id="section-tabs" class="section-tabs" aria-label="Editing sections" hidden></nav><div id="editor"></div></div>
+    </div>
+  </div>
+  <dialog id="project-editor" class="edit-dialog" aria-labelledby="project-editor-title"><form id="project-form"><div class="dialog-heading"><div><p class="eyebrow">PROJECT DETAILS</p><h2 id="project-editor-title">Edit project</h2></div><button class="icon-button" id="close-project" type="button" aria-label="Close project editor">×</button></div><div id="project-fields"></div><div class="dialog-actions"><button id="cancel-project" type="button" class="secondary">Cancel</button><button type="submit" class="primary">Keep changes</button></div><p class="dialog-note">Keep your edits here, then publish when you’re ready.</p></form></dialog>
+  <dialog id="session-dialog" class="session-dialog" aria-labelledby="session-title"><h2 id="session-title">Welcome back.</h2><p>Your session expired. Your edits are still here. Sign in again to continue.</p><form id="session-form"><label for="session-password">Owner password</label><input id="session-password" type="password" autocomplete="current-password" required maxlength="1024"><button class="primary" type="submit">Sign in again</button><button id="cancel-session" type="button" class="quiet">Keep editing for now</button><p id="session-status" role="status"></p></form></dialog>
+  <noscript><p class="notice">Enable JavaScript to use Studio Manager. The public website works without it.</p></noscript>
+<dialog id="page-preview" class="page-preview" aria-labelledby="preview-title"><div class="preview-heading"><div><p class="eyebrow">UNPUBLISHED PREVIEW</p><h2 id="preview-title">Your page</h2></div><div class="preview-size"><button type="button" class="quiet" id="preview-desktop" aria-pressed="true">Desktop</button><button type="button" class="quiet" id="preview-phone" aria-pressed="false">Phone</button></div><button type="button" id="close-preview" class="icon-button" aria-label="Close preview">×</button></div><div class="preview-frame-wrap"><iframe id="preview-frame" title="Preview of your page content" sandbox=""></iframe></div></dialog></body>
+</html>

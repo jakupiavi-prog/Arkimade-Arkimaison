@@ -3,6 +3,7 @@
   if (!group) return;
   const categorySelect = group.querySelector('[data-project-category]');
   const cards = [...document.querySelectorAll('.project-card[data-project]')];
+  if (!cards.length) return;
   const status = document.querySelector('.project-filter-status');
   const empty = document.querySelector('.project-empty');
   const inquiry = empty.querySelector('[data-category-inquiry]');

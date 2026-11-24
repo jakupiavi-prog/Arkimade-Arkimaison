@@ -5,7 +5,11 @@
   "description": "Arkimaison interior design and Arkimade architecture portfolios",
   "scripts": {
     "build": "node build.cjs",
+    "test": "node qa-all.cjs",
     "start": "node server.cjs",
     "dev": "node server.cjs"
+  },
+  "dependencies": {
+    "@vercel/blob": "2.8.0"
   }
 }

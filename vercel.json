@@ -2,5 +2,63 @@
   "$schema": "https://openapi.vercel.sh/vercel.json",
   "framework": null,
   "buildCommand": "npm run build",
-  "outputDirectory": "dist"
+  "outputDirectory": "dist",
+  "functions": {
+    "api/cms.js": {
+      "maxDuration": 30
+    },
+    "api/page.js": {
+      "maxDuration": 30,
+      "includeFiles": "*.html"
+    }
+  },
+  "routes": [
+    {
+      "src": "^/arkimade-staff\\.html$",
+      "dest": "/api/page?studio=arkimade-staff"
+    },
+    {
+      "src": "^/arkimaison-staff\\.html$",
+      "dest": "/api/page?studio=arkimaison-staff"
+    },
+    {
+      "src": "^/$",
+      "dest": "/api/page?studio=welcome"
+    },
+    {
+      "src": "^/index\\.html$",
+      "dest": "/api/page?studio=welcome"
+    },
+    {
+      "src": "^/arkimade\\.html$",
+      "dest": "/api/page?studio=arkimade"
+    },
+    {
+      "src": "^/arkimaison\\.html$",
+      "dest": "/api/page?studio=arkimaison"
+    },
+    {
+      "src": "^/admin$",
+      "dest": "/admin.html",
+      "headers": {
+        "Cache-Control": "no-store",
+        "X-Robots-Tag": "noindex, nofollow",
+        "X-Frame-Options": "DENY",
+        "Content-Security-Policy": "default-src 'none'; script-src 'self'; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src https://fonts.gstatic.com; img-src 'self' https: blob: data:; connect-src 'self'; frame-src 'self' about:; base-uri 'none'; object-src 'none'; frame-ancestors 'none'; form-action 'self'"
+      }
+    },
+    {
+      "src": "^/admin\\.html$",
+      "headers": {
+        "Cache-Control": "no-store",
+        "X-Robots-Tag": "noindex, nofollow",
+        "X-Frame-Options": "DENY",
+        "Content-Security-Policy": "default-src 'none'; script-src 'self'; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src https://fonts.gstatic.com; img-src 'self' https: blob: data:; connect-src 'self'; frame-src 'self' about:; base-uri 'none'; object-src 'none'; frame-ancestors 'none'; form-action 'self'"
+      },
+      "continue": true
+    },
+    {
+      "handle": "filesystem"
+    }
+  ]
 }

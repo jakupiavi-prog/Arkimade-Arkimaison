@@ -1,20 +1,7 @@
 const $ = selector => document.querySelector(selector);
 const brand = document.body.dataset.brand || 'Arkimade';
 const interior = brand === 'Arkimaison';
-const interiorImages = [
-  'https://images.unsplash.com/photo-1600210492486-724fe5c67fb0?auto=format&fit=crop&w=1800&q=85',
-  'https://images.unsplash.com/photo-1600607687920-4e2a09cf159d?auto=format&fit=crop&w=1000&q=85',
-  'https://images.unsplash.com/photo-1615874959474-d609969a20ed?auto=format&fit=crop&w=1000&q=85'
-];
-const projects = interior ? [
-  {name:'The Quiet Living Room',area:'Living room',floors:'Interior concept',image:interiorImages[0],description:'An illustrative living space built around soft upholstery, sculptural furniture, and a gentle palette. Layered textures and natural light create a place for everyday comfort.'},
-  {name:'The Gathered Kitchen',area:'Kitchen & dining',floors:'Interior concept',image:interiorImages[1],description:'An illustrative kitchen and dining concept centred on daily rituals. Natural surfaces, considered storage, and a welcoming gathering space balance practicality with a quiet elegance.'},
-  {name:'The Restful Suite',area:'Bedroom',floors:'Interior concept',image:interiorImages[2],description:'An illustrative bedroom concept with soft textiles, restrained furniture, and layered lighting. A calm material palette creates a restful retreat at the end of the day.'}
-] : [
-  {name:'Aether Heights',x:101,y:760,w:237,h:237,area:'300 m²',floors:'Single storey',description:'An illustrative study in restraint. Warm timber, textured stone and generous glazing bring the landscape into the home. The low roof creates a protected threshold between intimate interiors and the open garden.'},
-  {name:'Azure Sanctuary',x:354,y:760,w:237,h:237,area:'420 m²',floors:'Single storey',description:'An illustrative courtyard concept organised around a reflecting pool, exploring the meeting of architecture and horizon. Deep overhangs temper the light while open living spaces follow the rhythm of the water.'},
-  {name:'Summit Pavilion',x:607,y:760,w:236,h:237,area:'490 m²',floors:'Three storeys',description:'An illustrative vertical home with room to breathe. Layered terraces and planted edges offer privacy while keeping the house connected to its surroundings.'}
-];
+const projects = JSON.parse(document.querySelector('#studio-data').textContent);
 function closeMenu() {
   $('.header nav').classList.remove('open');
   $('.menu-button').setAttribute('aria-expanded','false');
@@ -38,17 +25,23 @@ document.querySelectorAll('dialog').forEach(dialog => {
 });
 document.querySelectorAll('[data-project]').forEach(button=>button.addEventListener('click',()=>{
   const project=projects[Number(button.dataset.project)];
-  const image=interior
-    ? '<div class="crop" style="--w:3;--h:2"><img src="'+project.image+'" alt="'+project.name+' interior inspiration"></div>'
-    : '<div class="crop" style="--x:'+project.x+';--y:'+project.y+';--w:'+project.w+';--h:'+project.h+'"><img src="assets/reference.png" alt="'+project.name+' architectural concept"></div>';
-  $('#project-content').innerHTML=image+'<div class="project-detail"><span class="eyebrow">'+(interior?'INTERIOR DESIGN':'ARCHITECTURE')+' / ILLUSTRATIVE CONCEPT</span><h2>'+project.name+'</h2><p>'+project.description+'</p><div class="detail-meta"><span>'+project.area+'</span><span>'+project.floors+'</span><span>'+(interior?'Interiors & styling':'Residential architecture')+'</span></div><button class="button" id="similar-project">DISCUSS YOUR PROJECT</button></div>';
+  if (!project) return;
+  const node=(tag,text,className)=>{const element=document.createElement(tag);if(text)element.textContent=text;if(className)element.className=className;return element;};
+  const picture=node('div','','crop'+(project.image.crop?'':' cms-photo'));
+  if(project.image.crop)for(const [key,value] of Object.entries(project.image.crop))picture.style.setProperty('--'+key,value);
+  const photo=node('img');photo.src=project.image.src;photo.alt=project.image.alt;picture.append(photo);
+  const detail=node('div','','project-detail');
+  detail.append(node('span',interior?'INTERIOR DESIGN':'ARCHITECTURE','eyebrow'),node('h2',project.name),node('p',project.description));
+  const meta=node('div','','detail-meta');
+  [project.area,project.floors,project.type].forEach(value=>meta.append(node('span',value)));
+  const discuss=node('button','DISCUSS YOUR PROJECT','button');discuss.id='similar-project';
+  detail.append(meta,discuss);$('#project-content').replaceChildren(picture,detail);
   $('#similar-project').addEventListener('click',()=>{
     openDialog('#contact-dialog');
     $('#contact-form [name=vision]').value="I'm interested in a project inspired by "+project.name+'. ';
   });
   openDialog('#project-dialog');
 }));
-$('[data-journal]').addEventListener('click',()=>openDialog('#journal-dialog'));
 $('.menu-button').addEventListener('click',()=>{
   const expanded=$('.header nav').classList.toggle('open');
   $('.menu-button').setAttribute('aria-expanded',String(expanded));

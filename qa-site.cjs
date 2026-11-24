@@ -6,7 +6,7 @@ let handler;
 const server = {on(){return this;},listen(){return this;}};
 vm.runInNewContext(fs.readFileSync('server.cjs','utf8'), {
   require: id => id === 'node:http' ? {createServer:callback => {handler=callback;return server;}} : require(id),
-  __dirname:process.cwd(),process:{env:{}},console,URL
+  __dirname:process.cwd(),process:{env:{}},console,URL,Buffer
 });
 async function request(url,method='GET') {
   let status,headers,body;
@@ -14,7 +14,7 @@ async function request(url,method='GET') {
   return {status,headers,body};
 }
 (async()=>{
-  for(const url of ['/','/index.html','/arkimaison.html','/arkimade.html','/style.css','/brands.css','/welcome.css','/app.js','/assets/reference.png','/assets/arki-mark.svg']) {
+  for(const url of ['/','/index.html','/arkimaison.html','/arkimade.html','/arkimade-staff.html','/arkimaison-staff.html','/admin','/admin.html','/content/site.json','/assets/admin.js','/assets/admin.css','/assets/content-render.js','/assets/content.css','/style.css','/brands.css','/welcome.css','/app.js','/assets/reference.png','/assets/arki-mark.svg']) {
     const response=await request(url);
     assert.equal(response.status,200,url);
     assert.ok(response.body.length>0,url+' has content');
@@ -28,7 +28,7 @@ async function request(url,method='GET') {
     assert.match(response.headers['Content-Type'],/^text\/html/);
   }
   assert.equal((await request('/app.js','POST')).status,405);
-  for(const url of ['/server.cjs','/package.json','/assets/../server.cjs','/assets/%2e%2e%5cserver.cjs','/assets/.private','/missing.html']) {
+  for(const url of ['/server.cjs','/package.json','/.env','/.env.example','/lib/content.cjs','/api/cms.js','/CMS-SETUP.md','/assets/../server.cjs','/assets/%2e%2e%5cserver.cjs','/assets/.private','/missing.html']) {
     assert.equal((await request(url)).status,404,url);
   }
   for(const name of ['index.html','arkimaison.html','arkimade.html']) {
@@ -44,7 +44,7 @@ async function request(url,method='GET') {
     assert.equal(ids.length,new Set(ids).size,name+' has unique IDs');
     if(name!=='index.html') {
       assert.equal((html.match(/data-project="/g)||[]).length,3);
-      for(const id of ['contact-form','project-dialog','contact-dialog','journal-dialog','year','download-brief','brief-success'])assert.ok(ids.includes(id),id);
+      for(const id of ['contact-form','project-dialog','contact-dialog','year','download-brief','brief-success'])assert.ok(ids.includes(id),id);
     }
   }
   const interior=fs.readFileSync('arkimaison.html','utf8');

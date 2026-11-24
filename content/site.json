@@ -1,0 +1,250 @@
+{
+  "version": 1,
+  "welcome": {
+    "arkimade": {
+      "image": {
+        "src": "assets/reference.png",
+        "alt": "Dark contemporary residence with glass balconies, landscaped steps and mature trees",
+        "crop": {
+          "x": 65,
+          "y": 213,
+          "w": 817,
+          "h": 378
+        }
+      },
+      "kicker": "THE FORM OF POSSIBILITY",
+      "description": "A vision made tangible.\nSpaces shaped around you.",
+      "button": "EXPLORE ARKIMADE",
+      "bottom": "Form. Space. Perspective."
+    },
+    "arkimaison": {
+      "image": {
+        "src": "https://images.unsplash.com/photo-1600210492486-724fe5c67fb0?auto=format&fit=crop&w=1800&q=85",
+        "alt": "A calm contemporary living room with layered natural textures"
+      },
+      "kicker": "THE SPACES WITHIN",
+      "description": "A feeling of home.\nConsidered in every detail.",
+      "button": "EXPLORE ARKIMAISON",
+      "bottom": "Texture. Light. Belonging."
+    }
+  },
+  "studios": {
+    "arkimade": {
+      "heroTitle": "Discover space you\ntruly belong in",
+      "heroDescription": "Experience more than a house: find a sanctuary\n where your journey unfolds, rich with comfort\n and endless possibilities.",
+      "heroButton": "PLAN YOUR PROJECT",
+      "heroCaption": "ARCHITECTURE FOR THE WAY YOU LIVE",
+      "projectsTitle": "Selected projects",
+      "projectsIntro": "Browse our architectural concepts by category.",
+      "projectsNote": "",
+      "projects": [
+        {
+          "name": "Aether Heights",
+          "subtitle": "Stone, light & a slower pace",
+          "area": "300 m²",
+          "floors": "Single storey",
+          "type": "Villa",
+          "description": "An illustrative study in restraint. Warm timber, textured stone and generous glazing bring the landscape into the home. The low roof creates a protected threshold between intimate interiors and the open garden.",
+          "image": {
+            "src": "assets/reference.png",
+            "alt": "Low stone pavilion with full height glazing and warm timber details",
+            "crop": {
+              "x": 101,
+              "y": 760,
+              "w": 237,
+              "h": 237
+            }
+          },
+          "categories": [
+            "housing",
+            "villa"
+          ]
+        },
+        {
+          "name": "Azure Sanctuary",
+          "subtitle": "A dialogue between water & sky",
+          "area": "420 m²",
+          "floors": "Single storey",
+          "type": "Villa",
+          "description": "An illustrative courtyard concept organised around a reflecting pool, exploring the meeting of architecture and horizon. Deep overhangs temper the light while open living spaces follow the rhythm of the water.",
+          "image": {
+            "src": "assets/reference.png",
+            "alt": "Contemporary courtyard home beside a long reflecting pool at sunset",
+            "crop": {
+              "x": 354,
+              "y": 760,
+              "w": 237,
+              "h": 237
+            }
+          },
+          "categories": [
+            "housing",
+            "villa"
+          ]
+        },
+        {
+          "name": "Summit Pavilion",
+          "subtitle": "A new perspective on urban living",
+          "area": "490 m²",
+          "floors": "Three storeys",
+          "type": "Villa",
+          "description": "An illustrative vertical home with room to breathe. Layered terraces and planted edges offer privacy while keeping the house connected to its surroundings.",
+          "image": {
+            "src": "assets/reference.png",
+            "alt": "Three level white modernist residence with recessed terraces and green planting",
+            "crop": {
+              "x": 607,
+              "y": 760,
+              "w": 236,
+              "h": 237
+            }
+          },
+          "categories": [
+            "housing",
+            "villa"
+          ]
+        }
+      ],
+      "studioLabel": "THE ARKIMADE PERSPECTIVE",
+      "studioTitle": "Exclusive\nby nature",
+      "studioDescription": "Considered spaces. A quieter kind of sophistication. Exploring natural light, honest materials, and the pleasure of feeling at home.",
+      "approachLabel": "THOUGHTFUL FROM THE FIRST LINE",
+      "approachTitle": "A place begins\nwith a conversation.",
+      "approachIntro": "Every home is personal.\nOur process starts with you.",
+      "steps": [
+        {
+          "title": "Listen & discover",
+          "text": "How do you live? What brings you calm? We begin with your everyday rituals, your ambitions, and the character of the site. Together, we define what home should feel like."
+        },
+        {
+          "title": "Explore & refine",
+          "text": "Ideas take shape through sketches, material studies and spatial exploration. We consider the relationship between light, landscape and each room, refining the design with you."
+        },
+        {
+          "title": "Detail & realise",
+          "text": "From the broadest gesture to the smallest junction, we bring the design into focus. Careful documentation and collaboration guide a considered vision toward a built home."
+        }
+      ],
+      "contactLabel": "YOUR NEXT CHAPTER",
+      "contactTitle": "Let's make room\nfor your vision.",
+      "contactButton": "START A CONVERSATION",
+      "contactEmail": "",
+      "contactPhone": "",
+      "contactAddress": "",
+      "footerText": "Architecture shaped around you.",
+      "footerNote": "Concept portfolio · architecture",
+      "heroImage": {
+        "src": "assets/reference.png",
+        "alt": "Dark contemporary residence with glass balconies, landscaped steps and mature trees",
+        "crop": {
+          "x": 65,
+          "y": 213,
+          "w": 817,
+          "h": 378
+        }
+      },
+      "studioImage": {
+        "src": "assets/reference.png",
+        "alt": "Sculptural cream stone villa framed by trees and evening light",
+        "crop": {
+          "x": 359,
+          "y": 1156,
+          "w": 484,
+          "h": 294
+        }
+      },
+      "staffTitle": "The people behind the studio.",
+      "staffIntro": "Meet our team.",
+      "staff": []
+    },
+    "arkimaison": {
+      "heroTitle": "The art of\nfeeling at home.",
+      "heroDescription": "Interiors shaped around your life.\n Considered textures, natural light,\n and a quieter kind of beauty.",
+      "heroButton": "PLAN YOUR PROJECT",
+      "heroCaption": "INTERIORS FOR THE WAY YOU LIVE",
+      "projectsTitle": "A personal perspective.\nA place of your own.",
+      "projectsIntro": "From a single room to a complete home,\n explore interiors that bring together\n comfort, character, and considered detail.",
+      "projectsNote": "A selection of illustrative design concepts.",
+      "projects": [
+        {
+          "name": "The Quiet Living Room",
+          "subtitle": "Soft textures & sculptural forms",
+          "area": "Living room",
+          "floors": "Interior concept",
+          "type": "Interior design",
+          "description": "An illustrative living space built around soft upholstery, sculptural furniture, and a gentle palette. Layered textures and natural light create a place for everyday comfort.",
+          "image": {
+            "src": "https://images.unsplash.com/photo-1600210492486-724fe5c67fb0?auto=format&fit=crop&w=1800&q=85",
+            "alt": "Contemporary living room with a neutral palette"
+          },
+          "categories": []
+        },
+        {
+          "name": "The Gathered Kitchen",
+          "subtitle": "Natural stone & everyday rituals",
+          "area": "Kitchen & dining",
+          "floors": "Interior concept",
+          "type": "Interior design",
+          "description": "An illustrative kitchen and dining concept centred on daily rituals. Natural surfaces, considered storage, and a welcoming gathering space balance practicality with a quiet elegance.",
+          "image": {
+            "src": "https://images.unsplash.com/photo-1600607687920-4e2a09cf159d?auto=format&fit=crop&w=1000&q=85",
+            "alt": "A considered kitchen and dining interior"
+          },
+          "categories": []
+        },
+        {
+          "name": "The Restful Suite",
+          "subtitle": "Layered light & a softer pace",
+          "area": "Bedroom",
+          "floors": "Interior concept",
+          "type": "Interior design",
+          "description": "An illustrative bedroom concept with soft textiles, restrained furniture, and layered lighting. A calm material palette creates a restful retreat at the end of the day.",
+          "image": {
+            "src": "https://images.unsplash.com/photo-1615874959474-d609969a20ed?auto=format&fit=crop&w=1000&q=85",
+            "alt": "A restful bedroom with soft textiles"
+          },
+          "categories": []
+        }
+      ],
+      "studioLabel": "THE ARKIMAISON PERSPECTIVE",
+      "studioTitle": "Considered.\nDown to the detail.",
+      "studioDescription": "A favourite texture. A beautifully balanced room. Light that changes with the day. We bring the elements of your interior together with purpose and a personal point of view.",
+      "approachLabel": "THOUGHTFUL FROM THE FIRST LINE",
+      "approachTitle": "Your home.\nYour way of living.",
+      "approachIntro": "Good interiors begin with listening.\nOur process starts with you.",
+      "steps": [
+        {
+          "title": "Listen & discover",
+          "text": "How do you use your space? What makes you feel at home? We start with your everyday routines, your favourite things, and what you want your rooms to become."
+        },
+        {
+          "title": "Explore & refine",
+          "text": "Layouts, materials, colours, and lighting come together in a clear interior concept. We explore furniture, finishes, and the small details that give your home its character."
+        },
+        {
+          "title": "Detail & realise",
+          "text": "We refine the joinery, lighting, finishes, and furniture into a cohesive direction. A considered interior brief helps you take the next steps toward bringing your space to life."
+        }
+      ],
+      "contactLabel": "YOUR NEXT CHAPTER",
+      "contactTitle": "Make yourself\nat home.",
+      "contactButton": "START A CONVERSATION",
+      "contactEmail": "",
+      "contactPhone": "",
+      "contactAddress": "",
+      "footerText": "Interiors with a sense of belonging.",
+      "footerNote": "Concept portfolio · interior design",
+      "heroImage": {
+        "src": "https://images.unsplash.com/photo-1600210492486-724fe5c67fb0?auto=format&fit=crop&w=1800&q=85",
+        "alt": "A calm contemporary living room with layered natural textures"
+      },
+      "studioImage": {
+        "src": "https://images.unsplash.com/photo-1616486338812-3dadae4b4ace?auto=format&fit=crop&w=1000&q=85",
+        "alt": "A thoughtfully styled contemporary interior"
+      },
+      "staffTitle": "The people behind the studio.",
+      "staffIntro": "Meet our team.",
+      "staff": []
+    }
+  }
+}
