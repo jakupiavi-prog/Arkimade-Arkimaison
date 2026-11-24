@@ -71,7 +71,7 @@ async function github(settings, file, method = 'GET', data) {
       'X-GitHub-Api-Version':'2022-11-28', 'User-Agent':'Arki-Studio-CMS', 'Content-Type':'application/json'
     }, ...(data ? {body:JSON.stringify({...data, branch:settings.branch})} : {})});
   } catch { throw error(502, 'Publishing could not reach GitHub. Your edits are still here; please try again.'); }
-  if (response.status === 409 || response.status === 422) throw error(409, 'The website changed since you opened it. Download your backup, then reload before publishing.');
+  if (response.status === 409 || response.status === 422) throw error(409, 'The website changed since you opened it. Your edits are still open. Reload only after you have copied any changes you want to keep.');
   if (!response.ok) throw error(502, response.status === 403 || response.status === 401 ? 'The publishing connection needs attention. Ask the site administrator to check its GitHub token and repository permissions.' : 'Could not read or save website content. Check the repository and branch settings, then try again.');
   return response.json();
 }

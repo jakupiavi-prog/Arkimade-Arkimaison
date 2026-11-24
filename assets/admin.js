@@ -2,7 +2,7 @@
   'use strict';
   const $ = selector => document.querySelector(selector);
   const esc = value => String(value ?? '').replace(/[&<>"']/g, character => ({'&':'&amp;', '<':'&lt;', '>':'&gt;', '"':'&quot;', "'":'&#39;'}[character]));
-  const state = {content:null, sha:null, page:'welcome', tab:'projects', dirty:false, busy:false, preview:false};
+  const state = {content:null, sha:null, page:'arkimade', tab:'projects', dirty:false, busy:false};
   const previews = new Map();
   const categories = [['housing','Housing'],['social-building','Social building'],['education','Education'],['urban-planning','Urban planning'],['restoration','Restoration'],['villa','Villa'],['apartments','Apartments'],['offices','Offices'],['hotels','Hotels'],['restaurants','Restaurants'],['beauty-salons','Beauty salons']];
   let draft = null, projectIndex = -1, draftDirty = false;
@@ -11,17 +11,17 @@
     const keys = path.split('.'); const key = keys.pop();
     keys.reduce((result, part) => result[part], object)[key] = value;
   }
-  function current() { return state.page === 'welcome' ? state.content.welcome : state.content.studios[state.page]; }
+  function current() { return state.content.studios[state.page]; }
   function message(text, failure = false, target = '#editor-status') {
     const element = $(target); element.textContent = text; element.classList.toggle('error', failure);
     element.setAttribute('role', failure ? 'alert' : 'status');
   }
   function refreshState() {
-    $('#save-state').textContent = state.preview ? 'Editor preview' : state.busy ? 'Saving…' : state.dirty ? 'Unpublished changes' : 'All changes saved';
+    $('#save-state').textContent = state.busy ? 'Saving…' : state.dirty ? 'Unpublished changes' : 'All changes saved';
     $('#state-dot').classList.toggle('unsaved', state.dirty);
-    $('#publish').disabled = state.preview || state.busy || !state.dirty;
+    $('#publish').disabled = state.busy || !state.dirty;
     $('#publish').textContent = state.busy ? 'Please wait…' : 'Publish changes';
-    document.querySelectorAll('[data-upload]').forEach(input => {input.disabled = state.preview || state.busy;});
+    document.querySelectorAll('[data-upload]').forEach(input => {input.disabled = state.busy;});
     $('#project-form button[type="submit"]').disabled = state.busy;
   }
   function changed(scope) {
@@ -61,25 +61,14 @@
     return `<div class="photo-preview${crop ? ' cropped' : ''}"${crop ? ` style="aspect-ratio:${crop.w}/${crop.h}"` : ''}><img src="${esc(src)}" alt="${esc(image.alt)}"${style}></div>`;
   }
   function imageEditor(image, path, scope = 'page') {
-    return `<div class="image-editor" data-image-editor="${path}" data-scope="${scope}"><div data-photo-path="${path}" data-scope="${scope}">${photo(image)}</div><div class="image-toolbar"><label class="secondary upload-label">Upload photo<input type="file" accept="image/jpeg,image/png,image/webp" data-upload="${path}" data-scope="${scope}"${state.preview ? ' disabled' : ''}></label><p class="image-caption">PNG, JPG, or WebP · up to 2 MB</p></div>${state.preview ? '<p class="image-caption">Photo uploads are available after publishing is connected.</p>' : ''}<details><summary>Photo details</summary>${field('Image address', path + '.src', image.src, {max:2048, scope, hint:'Use a direct https link to a photo.'})}${field('Describe this photo', path + '.alt', image.alt, {max:300, scope, hint:'A short description helps visitors using screen readers.'})}</details></div>`;
+    return `<div class="image-editor" data-image-editor="${path}" data-scope="${scope}"><div data-photo-path="${path}" data-scope="${scope}">${photo(image)}</div><div class="image-toolbar"><label class="secondary upload-label">Upload photo<input type="file" accept="image/jpeg,image/png,image/webp" data-upload="${path}" data-scope="${scope}"></label><p class="image-caption">PNG, JPG, or WebP · up to 2 MB</p></div><details><summary>Photo details</summary>${field('Image address', path + '.src', image.src, {max:2048, scope, hint:'Use a direct https link to a photo.'})}${field('Describe this photo', path + '.alt', image.alt, {max:300, scope, hint:'A short description helps visitors using screen readers.'})}</details></div>`;
   }
   function card(title, intro, body) {return `<section class="editor-card"><h2>${title}</h2>${intro ? `<p>${intro}</p>` : ''}${body}</section>`;}
-  function renderWelcome() {
-    return '<div class="two-panels">' + ['arkimade','arkimaison'].map(brand => {
-      const panel = state.content.welcome[brand];
-      return card(brand === 'arkimade' ? 'Arkimade' : 'Arkimaison', '', field('Introduction', brand + '.description', panel.description, {rows:3,max:600}) + '<details class="editor-extra"><summary>Change photo</summary>' + imageEditor(panel.image, brand + '.image') + '</details>');
-    }).join('') + '</div>';
-  }
   function renderProjects() {
     const page = current();
     let result = `<div class="section-intro"><div><h2>Your projects</h2><p>Add a project, update its story, or arrange the order.</p></div><button type="button" class="primary" data-add-project>Add project</button></div>`;
     if (!page.projects.length) return result + '<p class="empty-projects">Your next project starts here. Add a photo and a few details.</p>';
     return result + '<div class="project-list">' + page.projects.map((project,index) => `<article class="project-row">${photo(project.image)}<div class="project-info"><h3>${esc(project.name)}</h3><p>${esc(project.type || project.area)}</p></div><div class="project-controls"><button type="button" class="quiet" data-edit-project="${index}">Edit project</button><button type="button" class="quiet" data-move-project="${index}" data-direction="-1" aria-label="Move ${esc(project.name)} up"${index === 0 ? ' disabled' : ''}>Up</button><button type="button" class="quiet" data-move-project="${index}" data-direction="1" aria-label="Move ${esc(project.name)} down"${index === page.projects.length - 1 ? ' disabled' : ''}>Down</button><button type="button" class="quiet danger" data-remove-project="${index}" aria-label="Remove ${esc(project.name)}">Remove</button></div></article>`).join('') + '</div>';
-  }
-  function renderCopy() {
-    const page=current();
-    return card('Your page', 'Update the main words visitors see.', field('Main heading','heroTitle',page.heroTitle,{rows:2,max:180,required:true}) + field('Introduction','heroDescription',page.heroDescription,{rows:3}) + field('About the studio','studioDescription',page.studioDescription,{rows:5,max:2500}))
-      + '<details class="editor-extra"><summary>Change page photos</summary>' + card('Opening photo','',imageEditor(page.heroImage,'heroImage')) + card('Studio photo','',imageEditor(page.studioImage,'studioImage')) + '</details>';
   }
   function renderContact() {
     const page=current();
@@ -87,8 +76,7 @@
   }
   function renderStaff() {
     const page = current();
-    return '<details class="editor-extra"><summary>Edit staff page introduction</summary>' + card('Staff page', '', field('Page heading','staffTitle',page.staffTitle,{max:180,required:true}) + field('Introduction','staffIntro',page.staffIntro,{rows:3})) + '</details>'
-      + '<div class="section-intro"><h2>Your staff</h2><button type="button" class="primary" data-add-staff>Add staff member</button></div>'
+    return '<div class="section-intro"><h2>Your staff</h2><button type="button" class="primary" data-add-staff>Add staff member</button></div>'
       + (page.staff.length ? page.staff.map((member,index) => {
         const path = 'staff.' + index;
         return card('Staff member ' + (index + 1), '', field('Full name',path+'.name',member.name,{max:160,required:true}) + field('Role',path+'.role',member.role,{max:160}) + field('Biography',path+'.bio',member.bio,{rows:4,max:3000})
@@ -96,18 +84,15 @@
       }).join('') : '<p class="empty-projects">Add your first staff member to introduce the team.</p>');
   }
   function render() {
-    const welcome = state.page === 'welcome', maison = state.page === 'arkimaison';
-    $('#page-title').textContent = welcome ? 'Welcome page' : maison ? 'Arkimaison' : 'Arkimade';
-    $('#page-eyebrow').textContent = welcome ? 'THE FIRST IMPRESSION' : maison ? 'INTERIORS & LIVING' : 'ARCHITECTURE & FORM';
-    $('#page-description').textContent = welcome ? 'Two studios. One inviting introduction.' : 'A thoughtful space for your latest work.';
-    $('#view-site').href = welcome ? 'index.html' : state.page + (state.tab === 'staff' ? '-staff' : '') + '.html';
+    $('#page-title').textContent = state.page === 'arkimaison' ? 'Arkimaison' : 'Arkimade';
+    $('#page-description').textContent = 'Manage projects, staff, and contact details.';
+    $('#view-site').href = state.page + (state.tab === 'staff' ? '-staff' : '') + '.html';
     $('#page-nav').querySelectorAll('button').forEach(button => {
-      if (button.dataset.page === state.page) button.setAttribute('aria-current','page'); else button.removeAttribute('aria-current');
+      if(button.dataset.page === state.page) button.setAttribute('aria-current','page'); else button.removeAttribute('aria-current');
     });
-    $('#section-tabs').hidden = welcome;
-    $('#section-tabs').innerHTML = [['projects','Projects'],['staff','Staff'],['copy','Page'],['contact','Contact']].map(([key,label]) => `<button type="button" data-tab="${key}"${state.tab === key ? ' aria-current="page"' : ''}>${label}</button>`).join('');
-    const renderers = {projects:renderProjects,copy:renderCopy,contact:renderContact,staff:renderStaff};
-    $('#editor').innerHTML = welcome ? renderWelcome() : renderers[state.tab]();
+    $('#section-tabs').hidden = false;
+    $('#section-tabs').innerHTML = [['projects','Projects'],['staff','Staff'],['contact','Contact']].map(([key,label]) => `<button type="button" data-tab="${key}"${state.tab === key ? ' aria-current="page"' : ''}>${label}</button>`).join('');
+    $('#editor').innerHTML = {projects:renderProjects,staff:renderStaff,contact:renderContact}[state.tab]();
     refreshState();
   }
   function updatePhotographs() {
@@ -132,7 +117,6 @@
   }
   async function upload(input) {
     const file = input.files[0];if (!file) return;
-    if (state.preview) return;
     if (file.size > 2 * 1024 * 1024) {alert('Choose a photo smaller than 2 MB.');input.value = '';return;}
     if (!['image/jpeg','image/png','image/webp'].includes(file.type)) {alert('Choose a JPG, PNG, or WebP photo. Export HEIC photos as JPG first.');input.value = '';return;}
     state.busy = true;refreshState();
@@ -206,8 +190,12 @@
   $('#close-project').addEventListener('click',closeProject);$('#cancel-project').addEventListener('click',closeProject);
   $('#project-editor').addEventListener('cancel', event => {event.preventDefault();closeProject();});
   $('#publish').addEventListener('click', async () => {
-    if (state.preview || state.busy || !state.dirty) return;
+    if (state.busy || !state.dirty) return;
     for (const field of $('#editor').querySelectorAll('input,textarea')) if (!field.reportValidity()) return;
+    for (const [brand,page] of Object.entries(state.content.studios)) {
+      const incomplete=page.staff.findIndex(member=>!member.name.trim());
+      if(incomplete>=0){state.page=brand;state.tab='staff';render();message('Enter a name for staff member ' + (incomplete+1) + ', or remove the empty member, before publishing.',true);return;}
+    }
     const snapshot = JSON.stringify(state.content);
     state.busy = true;refreshState();message('Saving your changes…');
     try {
@@ -217,41 +205,10 @@
     } catch (failure) {message(failure.message,true);}
     finally {state.busy = false;refreshState();}
   });
-  $('#preview-changes').addEventListener('click', async () => {
-    const button = $('#preview-changes');button.disabled = true;
-    try {
-      const file = state.page === 'welcome' ? 'index.html' : state.page + (state.tab === 'staff' ? '-staff' : '') + '.html';
-      const response = await fetch('/' + file,{cache:'no-store'});
-      if (!response.ok) throw new Error('The preview could not be opened. Please try again.');
-      let html = globalThis.ArkiContentRender.render(await response.text(),state.content,file);
-      for (const [path,data] of previews) html = html.replaceAll('src="' + esc(path) + '"','src="' + data + '"');
-      // A sandboxed, script-free frame previews the rendered content without navigation or publishing.
-      $('#preview-frame').srcdoc = html.replace(/<script\b[^>]*>[\s\S]*?<\/script>/gi,'');
-      $('#preview-title').textContent = state.page === 'welcome' ? 'Welcome page' : state.page === 'arkimade' ? 'Arkimade' : 'Arkimaison';
-      $('#page-preview').showModal();
-    } catch (failure) {message(failure.message,true);}
-    finally {button.disabled = false;}
-  });
-  $('#close-preview').addEventListener('click', () => $('#page-preview').close());
-  for (const size of ['desktop','phone']) $('#preview-' + size).addEventListener('click', () => {
-    $('#preview-frame').classList.toggle('phone',size === 'phone');
-    $('#preview-desktop').setAttribute('aria-pressed',String(size === 'desktop'));
-    $('#preview-phone').setAttribute('aria-pressed',String(size === 'phone'));
-  });
-  $('#backup').addEventListener('click', () => {
-    const url = URL.createObjectURL(new Blob([JSON.stringify(state.content,null,2) + '\n'],{type:'application/json'}));
-    const link = document.createElement('a');link.href = url;link.download = 'studio-content-' + new Date().toISOString().slice(0,10) + '.json';link.click();setTimeout(() => URL.revokeObjectURL(url),1000);
-    message('Backup downloaded. It includes your current unpublished edits.');
-  });
-  async function start(preview = false) {
-    if (preview) {
-      const response = await fetch('/content/site.json',{cache:'no-store'});
-      if (!response.ok) throw new Error('The editor preview could not be loaded.');
-      state.content = await response.json();state.sha = null;
-    } else {const result = await api('content');state.content = result.content;state.sha = result.sha;}
-    state.preview = preview;state.dirty = false;
-    $('#preview-notice').hidden = !preview;$('#sign-in').hidden = true;$('#dashboard').hidden = false;
-    $('#sign-out').textContent = preview ? 'Leave preview' : 'Sign out';
+  async function start() {
+    const result = await api('content');
+    state.content=result.content;state.sha=result.sha;state.dirty=false;
+    $('#sign-in').hidden=true;$('#dashboard').hidden=false;
     render();
   }
   $('#login-form').addEventListener('submit', async event => {
@@ -268,19 +225,17 @@
   });
   $('#cancel-session').addEventListener('click', () => $('#session-dialog').close());
   $('#sign-out').addEventListener('click', async () => {
-    if (state.busy || ((state.dirty || draftDirty) && !confirm('Sign out and discard your unpublished changes? Download a backup first if you want to keep them.'))) return;
-    try {if (!state.preview) await api('logout','POST',{});state.dirty = false;draftDirty = false;location.reload();} catch (failure) {message(failure.message,true);}
+    if (state.busy || ((state.dirty || draftDirty) && !confirm('Sign out and discard your unpublished changes?'))) return;
+    try {await api('logout','POST',{});state.dirty = false;draftDirty = false;location.reload();} catch (failure) {message(failure.message,true);}
   });
   window.addEventListener('beforeunload', event => {if (state.dirty || draftDirty || state.busy) {event.preventDefault();event.returnValue = '';}});
   async function boot() {
-    $('#try-preview').hidden = false;
-    $('#try-preview').addEventListener('click', async () => {try {await start(true);} catch (failure) {message(failure.message,true,'#login-status');}});
     try {
       const status = await api('status');
       if (status.authenticated) await start();
       else if (!status.configured) {
         $('#login-form').querySelector('button').disabled = true;$('#password').disabled = true;
-        message('Publishing needs one-time setup by the site administrator. You can explore the editor preview now.',false,'#login-status');
+        message('Publishing is not connected. Please contact the site administrator.',false,'#login-status');
       } else message('Sign in with your owner password.',false,'#login-status');
     } catch (failure) {message(failure.message,true,'#login-status');}
   }

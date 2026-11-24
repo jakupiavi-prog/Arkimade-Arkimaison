@@ -19,7 +19,7 @@ function dashboard(configured) {
     reportValidity(){return true;}
   }
   const html=fs.readFileSync('admin.html','utf8');const nodes=new Map([...html.matchAll(/\bid="([^"]+)"/g)].map(match=>['#'+match[1],new Element(match[1])]));
-  const nav=['welcome','arkimade','arkimaison'].map(page=>{const node=new Element();node.dataset.page=page;node.closest=()=>node;return node;});
+  const nav=['arkimade','arkimaison'].map(page=>{const node=new Element();node.dataset.page=page;node.closest=()=>node;return node;});
   nodes.get('#page-nav').buttons=nav;
   for(const id of ['login-form','project-form','session-form'])nodes.get('#'+id).button=new Element();
   const events={},calls=[];let published;
@@ -46,26 +46,19 @@ function dashboard(configured) {
   const submit=async(selector)=>{const element=nodes.get(selector);await element.listeners.submit({preventDefault(){},target:element});await settle();};
   return {nodes,events,nav,calls,settle,click,submit,published:()=>published};
 }
-test('unconfigured owner can explore both editors without publishing',async()=>{
+test('unconfigured CMS requires setup rather than offering a non-publishing demo',async()=>{
   const ui=dashboard(false);await ui.settle();
   assert.equal(ui.nodes.get('#password').disabled,true);
-  await ui.click('#try-preview');
-  assert.equal(ui.nodes.get('#dashboard').hidden,false);
-  assert.equal(ui.nodes.get('#preview-notice').hidden,false);
-  assert.match(ui.nodes.get('#editor').innerHTML,/Arkimade[\s\S]*Arkimaison/);
-  await ui.click('#page-nav',ui.nav[1]);
-  assert.match(ui.nodes.get('#editor').innerHTML,/Aether Heights/);
-  await ui.click('#page-nav',ui.nav[2]);
-  assert.match(ui.nodes.get('#editor').innerHTML,/The Quiet Living Room/);
-  assert.equal(ui.nodes.get('#publish').disabled,true);
-  assert.ok(!ui.calls.some(call=>call.options?.method==='PUT'));
+  assert.equal(ui.nodes.has('#try-preview'),false);
+  assert.equal(ui.nodes.has('#backup'),false);
 });
+
 test('owner signs in, edits a project, retains the change across pages and publishes',async()=>{
   const ui=dashboard(true);await ui.settle();ui.nodes.get('#password').value='owner-fixture';
   await ui.submit('#login-form');
   assert.equal(ui.nodes.get('#dashboard').hidden,false);
   assert.equal(ui.nodes.get('#password').value,'');
-  await ui.click('#page-nav',ui.nav[1]);
+  await ui.click('#page-nav',ui.nav[0]);
   const edit={dataset:{editProject:'0'},hasAttribute:key=>key==='data-edit-project'};
   await ui.click('#editor',{closest:()=>edit});
   assert.equal(ui.nodes.get('#project-editor').open,true);
@@ -73,7 +66,7 @@ test('owner signs in, edits a project, retains the change across pages and publi
   ui.events.input({target:field});
   await ui.submit('#project-form');
   assert.match(ui.nodes.get('#editor').innerHTML,/Owner edited villa/);
-  await ui.click('#page-nav',ui.nav[2]);
+  await ui.click('#page-nav',ui.nav[1]);
   assert.equal(ui.nodes.get('#publish').disabled,false);
   await ui.click('#publish');
   assert.equal(ui.published().content.studios.arkimade.projects[0].name,'Owner edited villa');
@@ -86,7 +79,7 @@ test('owner signs in, edits a project, retains the change across pages and publi
 
 test('owner manages separate studio staff lists and publishes staff edits',async()=>{
   const ui=dashboard(true);await ui.settle();ui.nodes.get('#password').value='owner-fixture';await ui.submit('#login-form');
-  await ui.click('#page-nav',ui.nav[1]);
+  await ui.click('#page-nav',ui.nav[0]);
   await ui.click('#section-tabs',{closest:()=>({dataset:{tab:'staff'}})});
   assert.match(ui.nodes.get('#editor').innerHTML,/Add staff member/);
   assert.doesNotMatch(ui.nodes.get('#section-tabs').innerHTML,/Journal/);
@@ -94,12 +87,12 @@ test('owner manages separate studio staff lists and publishes staff edits',async
   await ui.click('#editor',action('data-add-staff'));
   for(const [field,value] of [['staff.0.name','Test Person'],['staff.0.role','Architect'],['staff.0.bio','Studio biography']])
     ui.events.input({target:{dataset:{field,scope:'page'},value,matches:selector=>selector==='[data-field]'}});
-  await ui.click('#page-nav',ui.nav[2]);await ui.click('#section-tabs',{closest:()=>({dataset:{tab:'staff'}})});
+  await ui.click('#page-nav',ui.nav[1]);await ui.click('#section-tabs',{closest:()=>({dataset:{tab:'staff'}})});
   assert.doesNotMatch(ui.nodes.get('#editor').innerHTML,/Test Person/);
   await ui.click('#publish');
   assert.equal(ui.published().content.studios.arkimade.staff[0].name,'Test Person');
   assert.equal(ui.published().content.studios.arkimaison.staff.length,0);
-  await ui.click('#page-nav',ui.nav[1]);await ui.click('#section-tabs',{closest:()=>({dataset:{tab:'staff'}})});
+  await ui.click('#page-nav',ui.nav[0]);await ui.click('#section-tabs',{closest:()=>({dataset:{tab:'staff'}})});
   await ui.click('#editor',action('data-remove-staff',{removeStaff:'0'}));await ui.click('#publish');
   assert.equal(ui.published().content.studios.arkimade.staff.length,0);
 });
