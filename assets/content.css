@@ -31,3 +31,5 @@
 .staff-page .header nav a[aria-current="page"]{color:var(--brand-ink);background:var(--nav-hover)}
 @media(max-width:700px){.staff-main{padding-top:36px}.staff-heading{grid-template-columns:1fr;gap:20px;padding-bottom:32px}.staff-heading>p{font-size:16px}.staff-card{grid-template-columns:1fr;gap:20px;padding:28px 0}.staff-empty{padding:28px 20px}.staff-page .staff-footer{flex-direction:column;gap:12px;margin-top:40px}}
 @media(max-width:600px){.cms-contact-details{flex-direction:column;gap:12px}.brand-page .hero-image.cms-photo{aspect-ratio:4/3}}
+
+.brand-page .contact-section{border-top:1px solid var(--brand-rule);padding-top:48px;padding-bottom:48px}.brand-page .contact-section h2{font-size:clamp(30px,3.2vw,44px);line-height:1.2;font-weight:400;letter-spacing:-.03em}.brand-page .staff-contact{margin-top:56px}.brand-page .contact-section .button{display:inline-flex;align-items:center;justify-content:center;text-decoration:none;min-height:44px}.brand-page .staff-contact+ .staff-footer{margin-top:0}.staff-page .staff-contact>div{gap:24px}

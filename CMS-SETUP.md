@@ -6,7 +6,7 @@ The owner edits both studios at **https://arkimadearkimaison.vercel.app/admin** 
 
 1. Open `/admin` on the live website and sign in with the owner password.
 2. Choose **Welcome page**, **Arkimade**, or **Arkimaison**.
-3. Use **Projects**, **Page text**, **Photos**, **Contact**, and **Staff** to make changes.
+3. Use **Projects**, **Staff**, **Page**, and **Contact** to make changes. Page photos are under **Page → Change page photos**.
 4. Inside a project, choose **Keep changes** to return to the dashboard. Use **Up** and **Down** to arrange projects. Only Arkimade has category filters.
 5. Choose **Preview** for a desktop or phone view of your draft.
 6. Choose **Publish changes**. After the save confirmation, refresh the public website. No code editing, GitHub login, or new deployment is needed for content changes.
@@ -55,3 +55,5 @@ An optional legacy GitHub-backed publication mode remains available when `CMS_ST
 ## Staff pages
 
 Choose a studio, then **Staff**. Add names, roles, and biographies. Staff pages use a text-only layout. Use **Move up** and **Move down** to set the order, **Preview** to review the staff page, and **Publish changes** to save. Each studio has its own staff page linked in its navigation. Existing online content is upgraded automatically; no previous page or project edits are reset.
+
+Contact details appear at the bottom of each studio’s main page and Staff page. Update them once under **Contact**. Extra photo settings and backups are tucked into expandable controls.

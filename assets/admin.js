@@ -61,13 +61,13 @@
     return `<div class="photo-preview${crop ? ' cropped' : ''}"${crop ? ` style="aspect-ratio:${crop.w}/${crop.h}"` : ''}><img src="${esc(src)}" alt="${esc(image.alt)}"${style}></div>`;
   }
   function imageEditor(image, path, scope = 'page') {
-    return `<div class="image-editor" data-image-editor="${path}" data-scope="${scope}"><div data-photo-path="${path}" data-scope="${scope}">${photo(image)}</div><div class="image-toolbar"><label class="secondary upload-label">Upload photo<input type="file" accept="image/jpeg,image/png,image/webp" data-upload="${path}" data-scope="${scope}"${state.preview ? ' disabled' : ''}></label><p class="image-caption">PNG, JPG, or WebP · up to 2 MB</p></div>${state.preview ? '<p class="image-caption">Photo uploads are available after publishing is connected.</p>' : ''}<details><summary>Use an image link instead</summary>${field('Image address', path + '.src', image.src, {max:2048, scope, hint:'Use a direct https link to a photo.'})}</details>${field('Describe this photo', path + '.alt', image.alt, {max:300, scope, hint:'A short description helps visitors using screen readers.'})}</div>`;
+    return `<div class="image-editor" data-image-editor="${path}" data-scope="${scope}"><div data-photo-path="${path}" data-scope="${scope}">${photo(image)}</div><div class="image-toolbar"><label class="secondary upload-label">Upload photo<input type="file" accept="image/jpeg,image/png,image/webp" data-upload="${path}" data-scope="${scope}"${state.preview ? ' disabled' : ''}></label><p class="image-caption">PNG, JPG, or WebP · up to 2 MB</p></div>${state.preview ? '<p class="image-caption">Photo uploads are available after publishing is connected.</p>' : ''}<details><summary>Photo details</summary>${field('Image address', path + '.src', image.src, {max:2048, scope, hint:'Use a direct https link to a photo.'})}${field('Describe this photo', path + '.alt', image.alt, {max:300, scope, hint:'A short description helps visitors using screen readers.'})}</details></div>`;
   }
   function card(title, intro, body) {return `<section class="editor-card"><h2>${title}</h2>${intro ? `<p>${intro}</p>` : ''}${body}</section>`;}
   function renderWelcome() {
     return '<div class="two-panels">' + ['arkimade','arkimaison'].map(brand => {
       const panel = state.content.welcome[brand];
-      return card(brand === 'arkimade' ? 'Arkimade' : 'Arkimaison', brand === 'arkimade' ? 'The architecture side, on the left.' : 'The interior design side, on the right.', imageEditor(panel.image, brand + '.image') + field('Small heading', brand + '.kicker', panel.kicker, {max:160}) + field('Introduction', brand + '.description', panel.description, {rows:3, max:600}) + field('Explore button', brand + '.button', panel.button, {max:160}) + field('Closing line', brand + '.bottom', panel.bottom, {max:160}));
+      return card(brand === 'arkimade' ? 'Arkimade' : 'Arkimaison', '', field('Introduction', brand + '.description', panel.description, {rows:3,max:600}) + '<details class="editor-extra"><summary>Change photo</summary>' + imageEditor(panel.image, brand + '.image') + '</details>');
     }).join('') + '</div>';
   }
   function renderProjects() {
@@ -77,26 +77,17 @@
     return result + '<div class="project-list">' + page.projects.map((project,index) => `<article class="project-row">${photo(project.image)}<div class="project-info"><h3>${esc(project.name)}</h3><p>${esc(project.type || project.area)}</p></div><div class="project-controls"><button type="button" class="quiet" data-edit-project="${index}">Edit project</button><button type="button" class="quiet" data-move-project="${index}" data-direction="-1" aria-label="Move ${esc(project.name)} up"${index === 0 ? ' disabled' : ''}>Up</button><button type="button" class="quiet" data-move-project="${index}" data-direction="1" aria-label="Move ${esc(project.name)} down"${index === page.projects.length - 1 ? ' disabled' : ''}>Down</button><button type="button" class="quiet danger" data-remove-project="${index}" aria-label="Remove ${esc(project.name)}">Remove</button></div></article>`).join('') + '</div>';
   }
   function renderCopy() {
-    const page = current(), f = (label,key,options) => field(label,key,page[key],options);
-    return card('The opening', 'The first words visitors see on this studio’s page.', f('Main heading','heroTitle',{rows:2,max:180,required:true}) + f('Introduction','heroDescription',{rows:3}) + '<div class="field-grid">' + f('Main button','heroButton',{max:80}) + f('Photo caption','heroCaption',{max:160}) + '</div>')
-      + card('Projects section', '', f('Heading','projectsTitle',{rows:2,max:180}) + f('Introduction','projectsIntro',{rows:3}) + (state.page === 'arkimaison' ? f('Small note','projectsNote',{max:300}) : ''))
-      + card('About the studio', '', f('Small heading','studioLabel',{max:120}) + f('Main heading','studioTitle',{rows:2,max:180}) + f('Your studio’s story','studioDescription',{rows:5,max:2500}))
-      + card('Your approach', 'Tell visitors how you work.', f('Small heading','approachLabel',{max:120}) + f('Main heading','approachTitle',{rows:2,max:180}) + f('Introduction','approachIntro',{rows:2}) + page.steps.map((step,index) => field('Step ' + (index + 1) + ' · title','steps.' + index + '.title',step.title,{max:160}) + field('Step ' + (index + 1) + ' · description','steps.' + index + '.text',step.text,{rows:3,max:2500})).join(''))
-      + card('Footer', 'The final details at the bottom of the page.', f('Closing sentence','footerText',{max:300}) + f('Portfolio note','footerNote',{max:200}));
-  }
-  function renderPhotos() {
-    const page = current();
-    return card('Opening photograph', 'Use a wide, high-quality photo. The website fits it to the page.', imageEditor(page.heroImage,'heroImage')) + card('Studio photograph', 'The image next to your studio’s story.', imageEditor(page.studioImage,'studioImage')) + '<p class="field-hint">To change a project photo, open that project in the Projects tab. Welcome page photos have their own editor.</p>';
+    const page=current();
+    return card('Your page', 'Update the main words visitors see.', field('Main heading','heroTitle',page.heroTitle,{rows:2,max:180,required:true}) + field('Introduction','heroDescription',page.heroDescription,{rows:3}) + field('About the studio','studioDescription',page.studioDescription,{rows:5,max:2500}))
+      + '<details class="editor-extra"><summary>Change page photos</summary>' + card('Opening photo','',imageEditor(page.heroImage,'heroImage')) + card('Studio photo','',imageEditor(page.studioImage,'studioImage')) + '</details>';
   }
   function renderContact() {
-    const page = current(), f = (label,key,options) => field(label,key,page[key],options);
-    return card('Start a conversation', '', f('Small heading','contactLabel',{max:120}) + f('Main heading','contactTitle',{rows:2,max:180}) + f('Button label','contactButton',{max:80}))
-      + card('Studio contact details', 'These appear on the studio page. Leave a field empty to hide it.', f('Email address','contactEmail',{type:'email',max:254}) + f('Phone number','contactPhone',{type:'tel',max:80}) + f('Studio address','contactAddress',{rows:3,max:400}))
-      + '<p class="field-hint">The project form creates a downloadable brief. It does not send emails. Adding an email address gives visitors a direct way to contact you.</p>';
+    const page=current();
+    return card('Contact details', 'Shown at the bottom of both this studio’s pages. Leave a field empty to hide it.', field('Email','contactEmail',page.contactEmail,{type:'email',max:254}) + field('Phone','contactPhone',page.contactPhone,{type:'tel',max:80}) + field('Address','contactAddress',page.contactAddress,{rows:3,max:400}));
   }
   function renderStaff() {
     const page = current();
-    return card('Staff page', 'Introduce the people behind this studio.', field('Page heading','staffTitle',page.staffTitle,{max:180,required:true}) + field('Introduction','staffIntro',page.staffIntro,{rows:3}))
+    return '<details class="editor-extra"><summary>Edit staff page introduction</summary>' + card('Staff page', '', field('Page heading','staffTitle',page.staffTitle,{max:180,required:true}) + field('Introduction','staffIntro',page.staffIntro,{rows:3})) + '</details>'
       + '<div class="section-intro"><h2>Your staff</h2><button type="button" class="primary" data-add-staff>Add staff member</button></div>'
       + (page.staff.length ? page.staff.map((member,index) => {
         const path = 'staff.' + index;
@@ -114,8 +105,8 @@
       if (button.dataset.page === state.page) button.setAttribute('aria-current','page'); else button.removeAttribute('aria-current');
     });
     $('#section-tabs').hidden = welcome;
-    $('#section-tabs').innerHTML = [['projects','Projects'],['copy','Page text'],['photos','Photos'],['contact','Contact'],['staff','Staff']].map(([key,label]) => `<button type="button" data-tab="${key}"${state.tab === key ? ' aria-current="page"' : ''}>${label}</button>`).join('');
-    const renderers = {projects:renderProjects,copy:renderCopy,photos:renderPhotos,contact:renderContact,staff:renderStaff};
+    $('#section-tabs').innerHTML = [['projects','Projects'],['staff','Staff'],['copy','Page'],['contact','Contact']].map(([key,label]) => `<button type="button" data-tab="${key}"${state.tab === key ? ' aria-current="page"' : ''}>${label}</button>`).join('');
+    const renderers = {projects:renderProjects,copy:renderCopy,contact:renderContact,staff:renderStaff};
     $('#editor').innerHTML = welcome ? renderWelcome() : renderers[state.tab]();
     refreshState();
   }
