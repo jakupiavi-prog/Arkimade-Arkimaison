@@ -148,7 +148,7 @@ test('browser draft preview and production use exactly the same renderer', () =>
 });
 
 
-test('staff content migrates older publications, validates photos, and escapes both staff pages',()=>{
+test('staff content migrates older publications, ignores legacy photos, and escapes both staff pages',()=>{
   const data=clone();
   for(const brand of ['arkimade','arkimaison']) {
     delete data.studios[brand].staff;delete data.studios[brand].staffTitle;delete data.studios[brand].staffIntro;
@@ -165,5 +165,5 @@ test('staff content migrates older publications, validates photos, and escapes b
     assert.doesNotMatch(html,/journal|<script>Test/);
   }
   migrated.studios.arkimade.staff[0].image.src='javascript:alert(1)';
-  assert.throws(()=>validateContent(migrated));
+  assert.equal(validateContent(migrated).studios.arkimade.staff[0].image,undefined);
 });

@@ -54,4 +54,4 @@ An optional legacy GitHub-backed publication mode remains available when `CMS_ST
 
 ## Staff pages
 
-Choose a studio, then **Staff**. Add names, roles, biographies, and optional photographs. Use **Move up** and **Move down** to set the order, **Preview** to review the staff page, and **Publish changes** to save. Each studio has its own staff page linked in its navigation. Existing online content is upgraded automatically; no previous page or project edits are reset.
+Choose a studio, then **Staff**. Add names, roles, and biographies. Staff pages use a text-only layout. Use **Move up** and **Move down** to set the order, **Preview** to review the staff page, and **Publish changes** to save. Each studio has its own staff page linked in its navigation. Existing online content is upgraded automatically; no previous page or project edits are reset.

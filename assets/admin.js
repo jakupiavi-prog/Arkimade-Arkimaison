@@ -100,8 +100,8 @@
       + '<div class="section-intro"><h2>Your staff</h2><button type="button" class="primary" data-add-staff>Add staff member</button></div>'
       + (page.staff.length ? page.staff.map((member,index) => {
         const path = 'staff.' + index;
-        return card('Staff member ' + (index + 1), '', field('Full name',path+'.name',member.name,{max:160,required:true}) + field('Role',path+'.role',member.role,{max:160}) + imageEditor(member.image,path+'.image') + field('Biography',path+'.bio',member.bio,{rows:4,max:3000})
-          + `<div class="staff-controls"><button type="button" class="quiet" data-move-staff="${index}" data-direction="-1"${index===0?' disabled':''}>Move up</button><button type="button" class="quiet" data-move-staff="${index}" data-direction="1"${index===page.staff.length-1?' disabled':''}>Move down</button><button type="button" class="quiet" data-clear-staff-photo="${index}">Remove photo</button><button type="button" class="quiet danger" data-remove-staff="${index}">Remove member</button></div>`);
+        return card('Staff member ' + (index + 1), '', field('Full name',path+'.name',member.name,{max:160,required:true}) + field('Role',path+'.role',member.role,{max:160}) + field('Biography',path+'.bio',member.bio,{rows:4,max:3000})
+          + `<div class="staff-controls"><button type="button" class="quiet" data-move-staff="${index}" data-direction="-1"${index===0?' disabled':''}>Move up</button><button type="button" class="quiet" data-move-staff="${index}" data-direction="1"${index===page.staff.length-1?' disabled':''}>Move down</button><button type="button" class="quiet danger" data-remove-staff="${index}">Remove member</button></div>`);
       }).join('') : '<p class="empty-projects">Add your first staff member to introduce the team.</p>');
   }
   function render() {
@@ -183,13 +183,12 @@
     const button = event.target.closest('button');if (!button) return;
     if (button.hasAttribute('data-add-staff')) {
       if (current().staff.length >= 30) {message('Each studio can have up to 30 staff members.',true);return;}
-      current().staff.push({name:'',role:'',bio:'',image:{src:'',alt:''}});changed();render();
+      current().staff.push({name:'',role:'',bio:''});changed();render();
     }
     if (button.hasAttribute('data-remove-staff')) {
       const index = Number(button.dataset.removeStaff);
       if (confirm('Remove this staff member? Publish when ready to apply the change.')) {current().staff.splice(index,1);changed();render();}
     }
-    if (button.hasAttribute('data-clear-staff-photo')) {current().staff[Number(button.dataset.clearStaffPhoto)].image={src:'',alt:''};changed();render();}
     if (button.hasAttribute('data-move-staff')) {
       const staff=current().staff,index=Number(button.dataset.moveStaff),next=index+Number(button.dataset.direction);
       if(next>=0 && next<staff.length){[staff[index],staff[next]]=[staff[next],staff[index]];changed();render();}
